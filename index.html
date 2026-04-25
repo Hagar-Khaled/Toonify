@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toonify CV Demo</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b1020'/%3E%3Cpath d='M16 38c6-12 11-18 16-18s10 6 16 18' fill='none' stroke='%2366e3c4' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M20 24l8 18 8-12 8 12' fill='none' stroke='%23ffcc66' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero card">
+      <div>
+        <p class="eyebrow">Computer Vision Demo</p>
+        <h1>Toonify</h1>
+        <p class="intro">
+          A live cartoon filter that combines manual Sobel edge detection with color quantization.
+          No OpenCV. Just pixel loops, a clean GUI, and instant visual feedback.
+        </p>
+      </div>
+      <div class="hero-badge">
+        <span>Edge detection</span>
+        <span>Posterization</span>
+        <span>Live preview</span>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <aside class="card controls">
+        <div class="control-block">
+          <label class="label" for="fileInput">Source image</label>
+          <input id="fileInput" type="file" accept="image/*">
+          <p class="helper-text">Upload any photo, load the demo scene, or start the webcam for a live test.</p>
+        </div>
+
+        <div class="control-block">
+          <label class="label" for="edgeThreshold">Edge threshold</label>
+          <input id="edgeThreshold" type="range" min="20" max="220" value="85">
+          <div class="slider-row">
+            <span>Soft</span>
+            <strong id="thresholdValue">85</strong>
+            <span>Strong</span>
+          </div>
+        </div>
+
+        <div class="button-grid">
+          <button id="toonifyButton" class="primary">Toonify</button>
+          <button id="demoButton" class="secondary">Load demo scene</button>
+          <button id="liveButton" class="secondary">Start webcam</button>
+          <button id="downloadButton" class="secondary" disabled>Download result</button>
+          <button id="resetButton" class="ghost">Reset</button>
+        </div>
+
+        <div class="status-panel">
+          <p class="label">Status</p>
+          <p id="statusText">Load an image, demo scene, or webcam to begin.</p>
+          <p id="imageInfo" class="helper-text"></p>
+        </div>
+      </aside>
+
+      <section class="preview-grid">
+        <article class="card preview-card">
+          <header>
+            <h2>Original</h2>
+            <p>Source image scaled for fast processing.</p>
+          </header>
+          <canvas id="sourceCanvas" width="640" height="480"></canvas>
+        </article>
+
+        <article class="card preview-card">
+          <header>
+            <h2>Toonified</h2>
+            <p>Sobel edges over quantized color blocks.</p>
+          </header>
+          <canvas id="resultCanvas" width="640" height="480"></canvas>
+        </article>
+      </section>
+    </section>
+
+    <video id="webcamVideo" class="webcam-video" autoplay playsinline muted></video>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
